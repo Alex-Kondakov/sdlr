@@ -7,7 +7,7 @@ exports.glob = (dir, mask=null) => {
     return (mask) ? files.filter(file => mask.includes(file.split('.').pop().toLowerCase())) : files
 }
 
-//Checking if passed string JSON or not
+//Checking if passed string is JSON or not
 exports.isJson = (input) => {
     try {
         JSON.parse(input)
