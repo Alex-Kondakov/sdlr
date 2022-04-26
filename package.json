@@ -2,9 +2,10 @@
   "name": "sdlr",
   "version": "0.0.1",
   "description": "Simpre JS scheduler",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -16,7 +17,7 @@
     "scheduler"
   ],
   "author": "Alex Kondakov",
-  "license": "ISC",
+  "license": "SEE LICENSE IN <LICENSE>",
   "bugs": {
     "url": "https://github.com/Alex-Kondakov/sdlr/issues"
   },
