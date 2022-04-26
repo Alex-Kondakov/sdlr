@@ -8,7 +8,7 @@ exports.glob = (dir, mask=null) => {
 }
 
 //Checking if passed string is JSON or not
-exports.isJson = (input) => {
+exports.isJson = input => {
     try {
         JSON.parse(input)
     } 
@@ -16,4 +16,11 @@ exports.isJson = (input) => {
         return false
     }
     return true
+}
+
+//Create dir if not exist
+exports.newDir = name => {
+    if (!fs.existsSync(name)){
+        fs.mkdirSync(name, { recursive: true });
+    }
 }

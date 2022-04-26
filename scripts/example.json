@@ -2,9 +2,9 @@
     "name": "Example",
     "mode": "in turn",
     "schedule": [
-        "16:09",
-        "16:10",
-        "16:11"
+        "18:22",
+        "18:23",
+        "18:24"
     ],
     "commands": [
         "node --version",

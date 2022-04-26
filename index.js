@@ -8,13 +8,14 @@ console.log(`SDLR PID: ${process.pid}`)
 
 //Scripts checking start
 const intervalObj  = setInterval(() => {
-    //Receiving current date and time
+    //Receiving current date and time in required format
     const now = new Date()
-    const year = now.getFullYear()
-    const month = now.getMonth() + 1
-    const day = now.getDate()
-    const hours = now.getHours()
-    const minutes = now.getMinutes()
+    const year = now.getFullYear().toString()
+    const month = ('0' + (now.getMonth() + 1)).slice(-2)
+    const day = ('0' + now.getDate()).slice(-2)
+    const hours = ('0' + now.getHours()).slice(-2)
+    const minutes = ('0' + now.getMinutes()).slice(-2)
+    const seconds = ('0' + now.getSeconds()).slice(-2)
 
     //Browsing through scripts and comparing scripts scheduling settings with current date and time
     //Receiving all scripts file names first
@@ -26,17 +27,23 @@ const intervalObj  = setInterval(() => {
             //Parsing script scheduling
             const currentScriptObj = JSON.parse(currentScript)
             const {schedule} = currentScriptObj
-            if (schedule.length > 0) {
-                /*
-                for (j = 0; j < schedule.length; i++) {
-                    const timeForExecution = schedule[j].split(':')
-                    if ((parseInt(timeForExecution[0]) == hours) && (parseInt(timeForExecution[1]) == minutes)) {
-                        //Check if this script has been executed already on this timing
-                        console.log(`RUN RUN RUN at ${schedule[j]}`)
-                    }
+            //Checking if current time is time for execution
+            if (schedule.includes(`${hours}:${minutes}`)) {
+                //Checking if there were no script execution for current timing earlier
+                const executionAttemptLogFile = path.join(__dirname, 'logs', scripts[i], year, month, day, hours + ':' + minutes)
+                if (!fs.existsSync(executionAttemptLogFile)) {
+                    console.log(`Executing ${scripts[i]} at ${hours}:${minutes}, details: ${executionAttemptLogFile}`)
+                    misc.newDir(path.join(__dirname, 'logs', scripts[i], year, month, day))
+                    /*
+                        CREATE CHILD PROCESS HERE
+                    */
+                    fs.writeFileSync(executionAttemptLogFile, JSON.stringify(
+                        {
+                            status: 'Success',
+                            time: `${hours}:${minutes}:${seconds}`
+                        }
+                    ))
                 }
-                */
-                console.log(`${Date.now()}: ${scripts[i]}`)
             }
         }
     }

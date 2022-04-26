@@ -6,7 +6,7 @@ There are two interconvertible methods to start **SDLR**. You are able to use li
 
 * **name** - String value containing name for script.
 * **mode** - Is responsible for commands execution method. This property must be a string with possible values: "simultaneous" or "in turn".
-* **schedule** - Is responsible for commands execution scheduling. This property must be an array of strings in the following format: "hh:mm". "hh" - stands for hours, "mm" - for minutes. Keep this array empty to avoid execution of current script.
+* **schedule** - Is responsible for commands execution scheduling. This property must be an array of strings in the following format: "hh:mm". "hh" - stands for hours, "mm" - for minutes. Important! It should be exactly two digits format for timing! Keep this array empty to avoid execution of current script.
 * **commands** - Is responsible for commands to be executed. It must be an array of strings, containing console commands.
 
 **./scripts** - is a project directory for storing scripts files. **SDLR** checks this dir on each iteration and run scripts accourding their scheduling rules. JSON below is example of how could script look like. **.json** file extension is not mandatory for scripts, you are free to choose any. However each script file must contain a valid JSON in order to be handled by **SDLR**.
