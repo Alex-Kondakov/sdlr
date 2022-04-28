@@ -1,10 +1,10 @@
 {
     "name": "Example",
-    "mode": "in turn",
+    "mode": "sync",
     "schedule": [
-        "18:22",
-        "18:23",
-        "18:24"
+        "20:35",
+        "20:36",
+        "20:37"
     ],
     "commands": [
         "node --version",

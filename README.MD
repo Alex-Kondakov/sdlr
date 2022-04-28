@@ -5,7 +5,7 @@
 There are two interconvertible methods to start **SDLR**. You are able to use lite console version which expect you will compose scripts manually. Alternatively there is user interface to handle your scripts, which, however, requires advanced configuring in your environment.
 
 * **name** - String value containing name for script.
-* **mode** - Is responsible for commands execution method. This property must be a string with possible values: "simultaneous" or "in turn".
+* **mode** - Is responsible for commands execution method. This property must be a string with possible values: "async" or "sync".
 * **schedule** - Is responsible for commands execution scheduling. This property must be an array of strings in the following format: "hh:mm". "hh" - stands for hours, "mm" - for minutes. Important! It should be exactly two digits format for timing! Keep this array empty to avoid execution of current script.
 * **commands** - Is responsible for commands to be executed. It must be an array of strings, containing console commands.
 
@@ -15,7 +15,7 @@ There are two interconvertible methods to start **SDLR**. You are able to use li
 ```json
 {
     "name": "Example",
-    "mode": "in turn",
+    "mode": "sync",
     "schedule": [
         "00:30",
         "08:30",
