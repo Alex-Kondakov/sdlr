@@ -4,16 +4,15 @@ const {spawn} = require('child_process')
 const misc = require('./libs/misc')
 const {CFG_ITERATIONS_INTERVAL} = require('./config')
 
-console.log(`SDLR PID: ${process.pid}`)
+console.log(`SDLR PID: ${process.pid}\n`)
 
-
-//Scripts checking start
+//SDLR starts
 const intervalObj  = setInterval(() => {
     //Browsing through scripts and comparing scripts scheduling settings with current date and time
     //Receiving all scripts file names first
     const scripts = misc.glob(path.join(__dirname, 'scripts')) 
     //Reading scripts
-    for (i = 0; i < scripts.length; i++) {
+    for (let i = 0; i < scripts.length; i++) {
         const currentScript = fs.readFileSync(path.join(__dirname, 'scripts', scripts[i]), 'utf8')
         //Proceed if current script is valid JSON
         if (misc.isJson(currentScript)) {
@@ -33,24 +32,31 @@ const intervalObj  = setInterval(() => {
             if (schedule.includes(`${hours}:${minutes}`)) {
                 //Checking if there was no script execution for current timestamp earlier
                 const logPath = path.join(__dirname, 'logs', scripts[i], year, month, day, hours + ':' + minutes)
+                //New dir for log if it doesn't exists already
+                misc.newDir(path.join(__dirname, 'logs', scripts[i], year, month, day))
                 if (!fs.existsSync(logPath)) {
-                    //Subprocess handler full path, depending of execution mode
-                    const handlerPath = path.join(__dirname, 'handlers', `${mode.toLowerCase()}.js`)
-                    //Current script full path
-                    const scriptPath = path.join(__dirname, 'scripts', scripts[i])
-                    //New dir for log if doesn't exist already
-                    misc.newDir(path.join(__dirname, 'logs', scripts[i], year, month, day))
-                    //New Log
-                    const message = `${hours}:${minutes} console: "node ${handlerPath} ${scriptPath} ${logPath}"`
-                    fs.writeFileSync(logPath, message + '\n\n')
-                    //Run script handler as standalone process
-                    const handler = spawn('node', [handlerPath, scriptPath, logPath], {
-                        detached: true,
-                        stdio: 'ignore'
-                    })
-                    handler.unref()
-                    //Message to console
-                    console.log(message + '\n')
+                    try {
+                        //Subprocess handler full path, depending of execution mode
+                        const handlerPath = path.join(__dirname, 'handlers', `${mode.toLowerCase()}.js`)
+                        //Current script full path
+                        const scriptPath = path.join(__dirname, 'scripts', scripts[i])
+                        //New Log
+                        const message = `${hours}:${minutes} console: "node ${handlerPath} ${scriptPath} ${logPath}"`
+                        fs.writeFileSync(logPath, message + '\n\n')
+                        //Run script handler as standalone process
+                        const handler = spawn('node', [handlerPath, scriptPath, logPath], {
+                            detached: true,
+                            stdio: 'ignore'
+                        })
+                        handler.unref()
+                        //Message to console
+                        console.log(message + '\n')
+                    }
+                    catch(e) {
+                        const error = `${hours}:${minutes} index.js: ${e.toString()}`
+                        fs.writeFileSync(logPath, error)
+                        console.log(error)
+                    }
                 }
             }
         }
