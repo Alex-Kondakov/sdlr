@@ -50,12 +50,12 @@
 
 #### example.json:
 ```shell
-# cd /your/project/dir
+# cd /path/to/projects/sdlr
 # npm start
 
 OR
 
-# cd /your/project/dir
+# cd /path/to/projects/sdlr
 # node index
 
 The second way saves about 25 MB of RAM
