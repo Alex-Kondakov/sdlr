@@ -7,7 +7,7 @@ const {CFG_ITERATIONS_INTERVAL} = require('./config')
 console.log(`SDLR PID: ${process.pid}\n`)
 
 //SDLR starts
-const intervalObj  = setInterval(() => {
+setInterval(() => {
     //Browsing through scripts and comparing scripts scheduling settings with current date and time
     //Receiving all scripts file names first
     const scripts = misc.glob(path.join(__dirname, 'scripts')) 
