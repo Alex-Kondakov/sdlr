@@ -56,7 +56,7 @@
 OR
 
 # cd /path/to/projects/sdlr
-# node index
+# node server
 
 The second way saves about 25 MB of RAM
 ```
