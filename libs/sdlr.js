@@ -3,6 +3,7 @@ const fs = require('fs')
 const { spawn } = require('child_process')
 const misc = require(path.join(__dirname, 'misc'))
 const pid = require(path.join(__dirname, 'pid'))
+const script = require(path.join(__dirname, 'script'))
 const { CFG_ITERATIONS_INTERVAL } = require(path.join(__dirname, '..', 'config'))
 
 //SDLR start
@@ -16,7 +17,7 @@ exports.start = () => {
         const scripts = misc.glob(path.join(__dirname, '..', 'scripts')) 
         //Reading scripts
         for (let i = 0; i < scripts.length; i++) {
-            const currentScript = fs.readFileSync(path.join(__dirname, '..', 'scripts', scripts[i]), 'utf8')
+            const currentScript = script.read(scripts[i])
             //Proceed if current script is valid JSON
             if (misc.isJson(currentScript)) {
                 //Parsing script settings
