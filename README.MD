@@ -46,7 +46,7 @@
 
 ## **SDLR** start
 
-**SDLR** designed to run scripts no more frequently than once a minute. You can edit **config.js** to define interval between scripts checks. The suggestion is to use default or less value to make sure your script would not be skipped.
+**SDLR** designed to run scripts no more frequently than once a second. You can edit **config.js** to define interval between scripts checks. The suggestion is to use default or less value to make sure your script would not be skipped.
 
 #### example.json:
 ```shell

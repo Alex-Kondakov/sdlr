@@ -5,4 +5,4 @@ exports.CFG_HOST = 'localhost'
 exports.CFG_PORT = 7000
 
 //SDLR iterations interval (milliseconds)
-exports.CFG_ITERATIONS_INTERVAL = 30000
+exports.CFG_ITERATIONS_INTERVAL = 500

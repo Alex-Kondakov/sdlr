@@ -14,7 +14,7 @@ exports.start = () => {
     setInterval(() => {
         //Browsing through scripts and comparing scripts scheduling settings with current date and time
         //Receiving all scripts file names first
-        const scripts = misc.glob(path.join(__dirname, '..', 'scripts')) 
+        const scripts = misc.glob(path.join(__dirname, '..', 'scripts'))
         //Reading scripts
         for (let i = 0; i < scripts.length; i++) {
             const currentScript = script.read(scripts[i])
@@ -31,11 +31,12 @@ exports.start = () => {
                 const day = ('0' + now.getDate()).slice(-2)
                 const hours = ('0' + now.getHours()).slice(-2)
                 const minutes = ('0' + now.getMinutes()).slice(-2)
+                const seconds = ('0' + now.getSeconds()).slice(-2)
     
                 //Checking if current time is the time for execution
-                if (schedule.includes(`${hours}:${minutes}`)) {
+                if (schedule.includes(`${hours}:${minutes}:${seconds}`)) {
                     //Checking if there was no script execution for current timestamp earlier
-                    const logPath = path.join(__dirname, '..', 'logs', scripts[i], year, month, day, hours + ':' + minutes)
+                    const logPath = path.join(__dirname, '..', 'logs', scripts[i], year, month, day, hours + ':' + minutes + ':' + seconds)
                     //New dir for log if it doesn't exists already
                     misc.newDir(path.join(__dirname, '..', 'logs', scripts[i], year, month, day))
                     if (!fs.existsSync(logPath)) {
@@ -45,7 +46,7 @@ exports.start = () => {
                             //Current script full path
                             const scriptPath = path.join(__dirname, '..', 'scripts', scripts[i])
                             //New Log
-                            const message = `${hours}:${minutes} console: "node ${handlerPath} ${scriptPath} ${logPath}"`
+                            const message = `${hours}:${minutes}:${seconds} console: "node ${handlerPath} ${scriptPath} ${logPath}"`
                             fs.writeFileSync(logPath, message + '\n\n')
                             //Run script handler as standalone process
                             const handler = spawn('node', [handlerPath, scriptPath, logPath], {
@@ -57,7 +58,7 @@ exports.start = () => {
                             console.log(message + '\n')
                         }
                         catch(e) {
-                            const error = `${hours}:${minutes} index.js: ${e.toString()}`
+                            const error = `${hours}:${minutes}:${seconds} index.js: ${e.toString()}`
                             fs.writeFileSync(logPath, error)
                             console.log(error)
                         }
